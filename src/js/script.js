@@ -93,6 +93,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
 
     initAccordion(){
@@ -162,57 +163,130 @@
       });
     }
 
-    processOrder(){
+    // processOrder(){
+    //   const thisProduct = this;
+    //   console.log('processOrder', thisProduct);
+
+    //   const formData = utils.serializeFormToObject(thisProduct.form);
+    //   console.log('Form data', formData);
+
+
+    //   /* set variable price to equal thisProduct.data.price */
+
+    //   let price = thisProduct.data.price;
+
+    //   /* przechodzimy bo wszystkich atrybutach */
+    //   for(let param in formData) {
+
+    //     //ustalamy jaką wartość w formData ma atrybut o nazwie "param"
+    //     const paramValue = formData[param];
+    //     console.log(param, paramValue);
+
+    //     // przchodzimy po samych wyborach
+    //     for(let option of paramValue) {
+
+    //       const searchedParam = param;
+    //       const searchedChoice = option;
+    //       console.log(option);
+
+    //       if(thisProduct.data.hasOwnProperty('params') && thisProduct.data.params.hasOwnProperty(searchedParam)) {
+    //         const choice = thisProduct.data.params[searchedParam].options[searchedChoice];
+
+    //         if(!choice.default) price = price + choice.price;
+
+    //       }
+    //     }
+
+    //     if(thisProduct.data.hasOwnProperty('params') && thisProduct.data.params.hasOwnProperty(param)) {
+
+    //       for(let choice in thisProduct.data.params[param].options) {
+
+    //         const choiceValue = thisProduct.data.params[param].options[choice];
+    //         console.log('Sprawdam opcje', choiceValue);
+    //         console.log('Jest wybrana?', formData[param].includes(choice));
+    //         console.log('Czy jest doyslna?', choiceValue.default);
+
+    //         if(!formData[param].includes(choice) && choiceValue.default) {
+    //           price = price - choiceValue.price;
+    //         }
+    //       }
+
+    //     }
+
+    //   }
+    //   thisProduct.priceElem.innerHTML = price;
+    // }
+
+    //}
+
+    processOrder() {
       const thisProduct = this;
-      console.log('processOrder', thisProduct);
+
+      /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
 
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('Form data', formData);
-
 
       /* set variable price to equal thisProduct.data.price */
 
       let price = thisProduct.data.price;
 
-      /* przechodzimy bo wszystkich atrybutach */
-      for(let param in formData) {
+      /* START LOOP: for each paramId in thisProduct.data.params */
 
-        //ustalamy jaką wartość w formData ma atrybut o nazwie "param"
-        const paramValue = formData[param];
-        console.log(param, paramValue);
+      for(let paramId in thisProduct.data.params){
+        console.log('paramId', paramId);
 
-        // przchodzimy po samych wyborach
-        for(let option of paramValue) {
+        /* save the element in thisProduct.data.params with key paramId as const param */
 
-          const searchedParam = param;
-          const searchedChoice = option;
-          console.log(option);
+        const param = thisProduct.data.params[paramId];
+        console.log('param', param);
 
-          if(thisProduct.data.hasOwnProperty('params') && thisProduct.data.params.hasOwnProperty(searchedParam)) {
-            const choice = thisProduct.data.params[searchedParam].options[searchedChoice];
+        /* START LOOP: for each optionId in param.options */
 
-            if(!choice.default) price = price + choice.price;
+        for(let optionId in param.options){
+          console.log('optionId', optionId);
+
+          /* save the element in param.options with key optionId as const option */
+
+          const option = param.options[optionId];
+          console.log('option', option);
+
+          /* START IF: if option is selected and option is not default */
+
+          const optionSelected = formData.hasOwnProperty(paramId) && formData[paramId].indexOf(optionId) > -1;
+          if (optionSelected && !option.default){
+
+            /* add price of option to variable price */
+
+            price = price + option.price;
+            console.log('cena', price);
+
+            /* END IF: if option is selected and option is not default */
 
           }
-        }
 
-        if(thisProduct.data.hasOwnProperty('params') && thisProduct.data.params.hasOwnProperty(param)) {
+          /* START ELSE IF: if option is not selected and option is default */
 
-          for(let choice in thisProduct.data.params[param].options) {
+          else if (!optionSelected && option.default){
 
-            const choiceValue = thisProduct.data.params[param].options[choice];
-            console.log('Sprawdam opcje', choiceValue);
-            console.log('Jest wybrana?', formData[param].includes(choice));
-            console.log('Czy jest doyslna?', choiceValue.default);
+            /* deduct price of option from price */
 
-            if(!formData[param].includes(choice) && choiceValue.default) {
-              price = price - choiceValue.price;
-            }
+            price = price - option.price;
+            console.log('cena', price);
+
+            /* END ELSE IF: if option is not selected and option is default */
+
           }
 
+          /* END LOOP: for each optionId in param.options */
+
         }
+
+        /* END LOOP: for each paramId in thisProduct.data.params */
 
       }
+
+      /* set the contents of thisProduct.priceElem to be the value of variable price */
+
       thisProduct.priceElem.innerHTML = price;
     }
   }
