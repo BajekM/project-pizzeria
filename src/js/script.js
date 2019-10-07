@@ -277,6 +277,28 @@
 
           }
 
+          //generating images
+
+          const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          console.log('Obrazek', image);
+
+
+          if (optionSelected && image!=null){
+            console.log('Zaznaczone:', image);
+            image.classList.add(classNames.menuProduct.imageVisible);
+          } else if (!optionSelected && image!=null){
+            image.classList.remove(classNames.menuProduct.imageVisible);
+          }else {
+            console.log('Nic z tego');
+          }
+
+          // }else {
+          //   for(let image in allImages){
+          //     console.log('Nie zaznaczone:', image);
+          //     image.classList.remove(classNames.menuProduct.imageVisible);
+          //   }
+          // }
+
           /* END LOOP: for each optionId in param.options */
 
         }
