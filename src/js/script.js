@@ -61,8 +61,9 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
-      console.log('newProduct: ', thisProduct);
+      ////console.log('newProduct: ', thisProduct);
     }
 
     renderInMenu(){
@@ -94,6 +95,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
 
     initAccordion(){
@@ -144,7 +146,7 @@
 
     initOrderForm(){
       const thisProduct = this;
-      console.log('initOrderForm', thisProduct);
+      //console.log('initOrderForm', thisProduct);
 
       thisProduct.form.addEventListener('submit', function(event){
         event.preventDefault();
@@ -165,10 +167,10 @@
 
     // processOrder(){
     //   const thisProduct = this;
-    //   console.log('processOrder', thisProduct);
+    //   //console.log('processOrder', thisProduct);
 
     //   const formData = utils.serializeFormToObject(thisProduct.form);
-    //   console.log('Form data', formData);
+    //   //console.log('Form data', formData);
 
 
     //   /* set variable price to equal thisProduct.data.price */
@@ -180,14 +182,14 @@
 
     //     //ustalamy jaką wartość w formData ma atrybut o nazwie "param"
     //     const paramValue = formData[param];
-    //     console.log(param, paramValue);
+    //     //console.log(param, paramValue);
 
     //     // przchodzimy po samych wyborach
     //     for(let option of paramValue) {
 
     //       const searchedParam = param;
     //       const searchedChoice = option;
-    //       console.log(option);
+    //       //console.log(option);
 
     //       if(thisProduct.data.hasOwnProperty('params') && thisProduct.data.params.hasOwnProperty(searchedParam)) {
     //         const choice = thisProduct.data.params[searchedParam].options[searchedChoice];
@@ -202,9 +204,9 @@
     //       for(let choice in thisProduct.data.params[param].options) {
 
     //         const choiceValue = thisProduct.data.params[param].options[choice];
-    //         console.log('Sprawdam opcje', choiceValue);
-    //         console.log('Jest wybrana?', formData[param].includes(choice));
-    //         console.log('Czy jest doyslna?', choiceValue.default);
+    //         //console.log('Sprawdam opcje', choiceValue);
+    //         //console.log('Jest wybrana?', formData[param].includes(choice));
+    //         //console.log('Czy jest doyslna?', choiceValue.default);
 
     //         if(!formData[param].includes(choice) && choiceValue.default) {
     //           price = price - choiceValue.price;
@@ -233,22 +235,22 @@
       /* START LOOP: for each paramId in thisProduct.data.params */
 
       for(let paramId in thisProduct.data.params){
-        console.log('paramId', paramId);
+        //console.log('paramId', paramId);
 
         /* save the element in thisProduct.data.params with key paramId as const param */
 
         const param = thisProduct.data.params[paramId];
-        console.log('param', param);
+        //console.log('param', param);
 
         /* START LOOP: for each optionId in param.options */
 
         for(let optionId in param.options){
-          console.log('optionId', optionId);
+          //console.log('optionId', optionId);
 
           /* save the element in param.options with key optionId as const option */
 
           const option = param.options[optionId];
-          console.log('option', option);
+          //console.log('option', option);
 
           /* START IF: if option is selected and option is not default */
 
@@ -258,7 +260,7 @@
             /* add price of option to variable price */
 
             price = price + option.price;
-            console.log('cena', price);
+            //console.log('cena', price);
 
             /* END IF: if option is selected and option is not default */
 
@@ -271,7 +273,7 @@
             /* deduct price of option from price */
 
             price = price - option.price;
-            console.log('cena', price);
+            //console.log('cena', price);
 
             /* END ELSE IF: if option is not selected and option is default */
 
@@ -280,21 +282,21 @@
           //generating images
 
           const image = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          console.log('Obrazek', image);
+          //console.log('Obrazek', image);
 
 
           if (optionSelected && image!=null){
-            console.log('Zaznaczone:', image);
+            //console.log('Zaznaczone:', image);
             image.classList.add(classNames.menuProduct.imageVisible);
           } else if (!optionSelected && image!=null){
             image.classList.remove(classNames.menuProduct.imageVisible);
           }else {
-            console.log('Nic z tego');
+            //console.log('');
           }
 
           // }else {
           //   for(let image in allImages){
-          //     console.log('Nie zaznaczone:', image);
+          //     //console.log('Nie zaznaczone:', image);
           //     image.classList.remove(classNames.menuProduct.imageVisible);
           //   }
           // }
@@ -309,15 +311,93 @@
 
       /* set the contents of thisProduct.priceElem to be the value of variable price */
 
+      price *= thisProduct.amountWidget.value;
       thisProduct.priceElem.innerHTML = price;
     }
+
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
+    }
+  }
+
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+      thisWidget.getElements(element);
+      //settings.amountWidget.defaultValue = 2;
+      thisWidget.value = settings.amountWidget.defaultValue;
+      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.initActions();
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
+    }
+
+    getElements(element){
+      const thisWidget = this;
+
+      thisWidget.element = element;
+      thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+      thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+      thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+    }
+
+    setValue(value) {
+      const thisWidget = this;
+
+      const newValue = parseInt(value);
+
+      /* TODO: Add validation */
+
+      if(newValue != thisWidget.value && newValue >= settings.amountWidget.defaultMin && newValue <= settings.amountWidget.defaultMax){
+        thisWidget.value = newValue;
+        thisWidget.announce();
+        console.log('wartość', newValue);
+      }
+      thisWidget.input.value = thisWidget.value;
+    }
+
+    initActions() {
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', function(){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.input.value);
+      });
+
+      thisWidget.linkIncrease.addEventListener('click', function(){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.input.value + 1);
+
+      });
+
+      thisWidget.linkDecrease.addEventListener('click', function(){
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.input.value - 1);
+
+      });
+
+    }
+
+    announce() {
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
+    }
+
+
   }
 
   const app = {
     initMenu: function(){
       const thisApp = this;
 
-      console.log('thisApp.data:', thisApp.data);
+      //console.log('thisApp.data:', thisApp.data);
 
       for(let productData in thisApp.data.products) {
         new Product(productData, thisApp.data.products[productData]);
