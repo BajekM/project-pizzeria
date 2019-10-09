@@ -371,7 +371,8 @@
 
       thisWidget.linkIncrease.addEventListener('click', function(){
         event.preventDefault();
-        thisWidget.setValue(thisWidget.input.value + 1);
+        thisWidget.setValue(parseInt(thisWidget.input.value) + 1);
+        console.log('dodano 1');
 
       });
 
