@@ -1,4 +1,5 @@
-import {Handlebars} from './utils';
+/* global Handlebars, dataSource */ // eslint-disable-line no-unused-vars
+
 
 export const select = {
   templateOf: {
