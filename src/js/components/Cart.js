@@ -40,8 +40,6 @@ class Cart{
 
     thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
 
-    console.log('To: ', thisCart.dom.phone.value);
-
     thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
   }
 

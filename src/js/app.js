@@ -92,7 +92,7 @@ const app = {
         return rawResponse.json();
       })
       .then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
+        //console.log('parsedResponse', parsedResponse);
 
         /*save parsedResponse as thisApp.data.products */
 
@@ -102,7 +102,7 @@ const app = {
         thisApp.initMenu();
       });
 
-    console.log('thisApp.data', thisApp.data);
+    //console.log('thisApp.data', thisApp.data);
   },
 
   initCart: function() {
