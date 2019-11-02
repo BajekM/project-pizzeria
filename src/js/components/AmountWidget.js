@@ -5,12 +5,14 @@ class AmountWidget extends BaseWidget {
   constructor(element){
     super(element, settings.amountWidget.defaultValue);
     const thisWidget = this;
+
     thisWidget.getElements(element);
     //settings.amountWidget.defaultValue = 2;
 
     thisWidget.initActions();
     //console.log('AmountWidget:', thisWidget);
     //console.log('constructor arguments:', element);
+
   }
 
   getElements(){
@@ -44,20 +46,16 @@ class AmountWidget extends BaseWidget {
 
     thisWidget.dom.linkIncrease.addEventListener('click', function(){
       event.preventDefault();
-      thisWidget.setValue(parseInt(thisWidget.dom.input.value) + 1);
-      ////console.log('dodano 1');
-
+      thisWidget.setValue(parseInt(thisWidget.dom.input.value) + parseInt(1));
     });
 
     thisWidget.dom.linkDecrease.addEventListener('click', function(){
       event.preventDefault();
-      thisWidget.setValue(thisWidget.dom.input.value - 1);
-
+      thisWidget.setValue(parseInt(thisWidget.dom.input.value) - parseInt(1));
     });
 
+
   }
-
-
 
 }
 

@@ -94,7 +94,7 @@ class Booking {
       }
     }
 
-    console.log('this.Booking.booked', thisBooking.booked);
+    //console.log('this.Booking.booked', thisBooking.booked);
 
     thisBooking.updateDOM();
   }
@@ -148,6 +148,8 @@ class Booking {
       });
     }
 
+    //console.log('To:',thisBooking.booked);
+
   }
 
   makeBooked(date, hour, duration, table) {
@@ -170,8 +172,9 @@ class Booking {
         thisBooking.booked[date][hourBlock] = [];
       }
 
-      thisBooking.booked[date][hourBlock].push(table);
+      thisBooking.booked[date][hourBlock].push(parseInt(table));
     }
+
   }
   render(element) {
     const thisBooking = this;

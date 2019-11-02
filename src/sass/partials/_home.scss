@@ -1,0 +1,247 @@
+/*Header*/
+.header .home {
+  color: white;
+  text-decoration: none;
+}
+
+.header .home:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/*Functions*/
+.functions
+a:hover .inner::after {
+  display: block;
+}
+
+.functions .inner {
+  height: 250px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.functions .pizza-1 {
+  background-image: url(../../images/pizza-1.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.functions .pizza-2 {
+  background-image: url(../../images/pizza-2.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.functions .inner h3, h4{
+  color: white;
+}
+
+.functions .inner h3{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 45px;
+  transition: all ease-in-out 1s;
+  text-transform: uppercase;
+  font-family: $font-header;
+}
+
+.functions .inner h4 {
+  position: absolute;
+  left: 50%;
+  bottom: -40%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  text-align: center;
+}
+
+.functions .inner:hover h3{
+  top: 30%;
+  transition: all ease-in-out 1s;
+}
+
+.functions .pizza-1:hover h4{
+  display: block;
+  bottom: 30%;
+  transition: all ease-in-out 1s;
+}
+
+.functions .pizza-2:hover h4{
+  display: block;
+  bottom: 30%;
+  transition: all ease-in-out 1s;
+}
+
+
+.functions .hours {
+  height: 250px;
+  background-color: salmon;
+  position: relative;
+}
+
+.functions .hour-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.functions .hour-inner h3 {
+  font-size: 45px;
+  transition: all ease-in-out 1s;
+  font-family: $font-header;
+}
+/*Gallery*/
+.gallery .gallery-item{
+  position: relative;
+}
+
+.gallery img {
+  width: 100%;
+  height: 267px;
+  object-fit: cover;
+}
+
+.gallery .gallery-item::after{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 50%;
+  z-index: 5;
+  display: none;
+  transition: all ease-in-out 1s;
+}
+
+.gallery .image-wrapper::after {
+  position: absolute;
+  background: black;
+  content: ' ';
+  opacity: 60%;
+  width: 92%;
+  height: 100%;
+  z-index: 5;
+  display: none;
+  top: 0;
+  left: 4%;
+}
+
+.gallery .gallery-item-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  display: none;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.gallery .gallery-item-inner span:hover {
+  color: salmon;
+}
+
+.gallery .gallery-item:hover .gallery-item-inner {
+  display: block;
+}
+
+.gallery .gallery-item:hover .image-wrapper::after {
+  display: block;
+}
+
+.gallery a {
+  text-decoration: underline;
+  color: salmon;
+  display: block;
+  margin-top: 20px;
+}
+
+/*Carousel*/
+.carousel {
+  margin: 200px 0;
+}
+
+.carousel img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel .image-wrapper {
+  padding: 0;
+  width: 365px;
+  height: 243px;
+}
+
+.carousel .carousel-text h5 {
+  text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  margin: 50px auto;
+  font-weight: bold;
+}
+
+.carousel .author {
+  display: block;
+  margin-top: 40px;
+  font-style: italic;
+}
+
+.carousel .slide{
+  display: none;
+}
+
+.carousel-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-indicator {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: $color-dark;
+  display: inline-block;
+  margin: 30px 15px;
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.carousel-indicator.current-slide{
+  opacity: 100%;
+}
+
+.carousel .placed-slide {
+  display: flex;
+  opacity: 0%;
+}
+
+.carousel .animated-slide {
+  animation: appear 3s linear 1;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0%;
+  }
+
+  5% {
+    opacity: 100%;
+  }
+
+  95% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+
+}
