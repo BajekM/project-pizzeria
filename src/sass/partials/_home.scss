@@ -1,4 +1,9 @@
 /*Header*/
+
+.header {
+  margin-bottom: 100px;
+}
+
 .header .home {
   color: white;
   text-decoration: none;
@@ -20,6 +25,7 @@ a:hover .inner::after {
   width: 100%;
   position: relative;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .functions .pizza-1 {
@@ -63,23 +69,23 @@ a:hover .inner::after {
   transition: all ease-in-out 1s;
 }
 
-.functions .pizza-1:hover h4{
-  display: block;
-  bottom: 30%;
-  transition: all ease-in-out 1s;
-}
-
+.functions .pizza-1:hover h4,
 .functions .pizza-2:hover h4{
   display: block;
-  bottom: 30%;
+  bottom: 10%;
   transition: all ease-in-out 1s;
 }
 
+.functions .row {
+  justify-content: space-between;
+}
 
 .functions .hours {
   height: 250px;
   background-color: salmon;
   position: relative;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 .functions .hour-inner {
@@ -98,26 +104,23 @@ a:hover .inner::after {
   font-family: $font-header;
 }
 /*Gallery*/
-.gallery .gallery-item{
+.gallery .gallery-item {
   position: relative;
+  padding: 0;
+  height: 267px;
+  margin-top: 20px;
 }
 
 .gallery img {
   width: 100%;
   height: 267px;
   object-fit: cover;
+  border-radius: 10px;
 }
 
-.gallery .gallery-item::after{
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: black;
-  opacity: 50%;
-  z-index: 5;
-  display: none;
-  transition: all ease-in-out 1s;
+.gallery .row {
+  display: flex;
+  justify-content: space-between;
 }
 
 .gallery .image-wrapper::after {
@@ -125,12 +128,14 @@ a:hover .inner::after {
   background: black;
   content: ' ';
   opacity: 60%;
-  width: 92%;
+  width: 100%;
   height: 100%;
   z-index: 5;
   display: none;
   top: 0;
-  left: 4%;
+  left: 0;
+  padding: 0;
+  border-radius: 10px;
 }
 
 .gallery .gallery-item-inner {
@@ -161,17 +166,19 @@ a:hover .inner::after {
   color: salmon;
   display: block;
   margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 /*Carousel*/
 .carousel {
-  margin: 200px 0;
+  margin: 100px 0;
 }
 
 .carousel img{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 
 .carousel .image-wrapper {
@@ -184,13 +191,16 @@ a:hover .inner::after {
   text-transform: uppercase;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
-  margin: 50px auto;
+  margin: 30px auto;
   font-weight: bold;
+}
+
+.carousel .carousel-text h6 {
+  font-size: 14px;
 }
 
 .carousel .author {
   display: block;
-  margin-top: 40px;
   font-style: italic;
 }
 
@@ -244,4 +254,11 @@ a:hover .inner::after {
     opacity: 0%;
   }
 
+}
+
+@media (max-width:1200px) {
+  .functions .inner h3,
+  .functions .hour-inner h3 {
+    font-size: 30px;
+  }
 }

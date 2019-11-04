@@ -34,7 +34,7 @@ function showSlide() {
 function skipDot() {
   const activeDot = document.querySelector('.current-slide');
   let activeDotTarget  = activeDot.getAttribute('target');
-  console.log('activeDotTarget', activeDotTarget);
+  //console.log('activeDotTarget', activeDotTarget);
   if(activeDotTarget == 'slide-1') {
     activeDotTarget = 'slide-2';
   }else if(activeDotTarget == 'slide-2') {
@@ -42,10 +42,10 @@ function skipDot() {
   } else if (activeDotTarget == 'slide-3') {
     activeDotTarget = 'slide-1';
   }
-  console.log('changedActiveDotTarget', activeDotTarget);
+  //console.log('changedActiveDotTarget', activeDotTarget);
   activeDot.classList.remove('current-slide');
   const nextDot = document.querySelector('[target=' + activeDotTarget + ']');
-  console.log('nextDot', nextDot);
+  //console.log('nextDot', nextDot);
   nextDot.classList.add('current-slide');
   clearSlides();
   showSlide();
